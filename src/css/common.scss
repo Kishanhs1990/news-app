@@ -1,0 +1,30 @@
+html {
+  box-sizing: border-box;
+  line-height: 1.428;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: $body-font;
+  font-size: $fs-md; // 14px
+  font-weight: $fw-normal;
+  color: $primary-color;
+}
+
+.loader {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border: 2px solid rgba(254, 201, 0, 0.2);
+  border-top: 2px solid $yellow;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

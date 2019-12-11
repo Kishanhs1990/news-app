@@ -1,0 +1,117 @@
+@import "variables.scss";
+@import "common.scss";
+@import "mixins.scss";
+
+.container {
+  width: 100%;
+  height: 100vh;
+}
+
+.nav {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: $navbar-height;
+  background-color: $yellow;
+  @include flex(center, center);
+
+  &-item {
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+  }
+}
+
+.main {
+  padding-top: $navbar-height;
+  width: 100%;
+  height: calc(100vh - #{$navbar-height});
+  display: flex;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: $navbar-height;
+  padding: 12px 0;
+  width: 240px;
+  height: 100vh;
+  background-color: $primary-color;
+
+  &-category {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    a {
+      text-decoration: none;
+    }
+
+    &--item {
+      padding: 16px 24px;
+      width: 100%;
+      color: $white;
+      transition: all 200ms ease;
+      text-transform: capitalize;
+      cursor: pointer;
+
+      &:hover {
+        font-weight: $fw-bold;
+        background-color: $grey-5;
+        transition: all 200ms ease;
+      }
+    }
+
+    .active {
+      font-weight: $fw-bold;
+      background-color: $grey-5;
+      border-right: 6px solid $yellow;
+    }
+  }
+}
+
+.primary-view {
+  margin-left: 240px;
+  padding: 12px 24px;
+  background-color: $grey-fa;
+  width: calc(100% - 240px);
+
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 32px;
+
+    &__item {
+      display: grid;
+      padding: 6px;
+      height: 260px;
+      border-radius: 2px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+      .image {
+        height: 160px;
+        width: 100%;
+        object-fit: contain;
+      }
+
+      .title {
+        padding-top: 8px;
+        font-size: $fs-md;
+        font-weight: $fw-bold;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 100%;
+      }
+
+      .description {
+        display: -webkit-box;
+        font-size: $fs-sm;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+  }
+}
