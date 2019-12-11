@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fetchData } from '../utils';
+import { connect } from 'react-redux';
 
 class PrimaryView extends React.Component {
-  state = {
-    newsData: [],
-    isModalOpen: false,
-  };
-
   componentDidMount() {
     this.makeApiCall();
   }
@@ -21,12 +17,11 @@ class PrimaryView extends React.Component {
   makeApiCall = async () => {
     const { activeCategory } = this.props;
     const newsData = await fetchData('top-headlines', activeCategory);
-    this.setState({ newsData });
+    this.props.dispatch({ type: newsData });
   };
 
   render() {
-    const { newsData } = this.state;
-    console.log(newsData);
+    const { newsData } = this.props;
 
     return (
       <div className="primary-view">
@@ -67,4 +62,11 @@ PrimaryView.propTypes = {
   activeCategory: PropTypes.string,
 };
 
-export default PrimaryView;
+const mapStateToProps = state => ({
+  categories: state.categories,
+  newsData: state.newsData,
+  activeCategory: state.activeCategory,
+  isLoaded: state.isLoaded,
+});
+
+export default connect(mapStateToProps)(PrimaryView);

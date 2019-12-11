@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,10 +10,6 @@ import {
 } from 'react-router-dom';
 
 class Sidebar extends React.Component {
-  state = {
-    categories: [],
-  };
-
   componentDidUpdate(prevProps) {
     if (prevProps.newsData !== this.props.newsData) {
       this.uniqueByCategory();
@@ -26,15 +23,18 @@ class Sidebar extends React.Component {
       const listOfCategories = newsData.map(item => item.category);
       const uniqueCategories = new Set(listOfCategories);
 
-      this.setState({
-        categories: [...uniqueCategories],
+      const categories = [...uniqueCategories];
+      console.log(categories);
+
+      this.props.dispatch({
+        type: categories,
       });
     }
   };
 
   render() {
     const { newsData, setCategoryAsActive, activeCategory } = this.props;
-    const { categories } = this.state;
+    const { categories } = this.props;
 
     return (
       <Router>
@@ -74,4 +74,11 @@ Sidebar.propTypes = {
   setCategoryAsActive: PropTypes.func,
 };
 
-export default Sidebar;
+const mapStateToProps = state => ({
+  categories: state.categories,
+  newsData: state.newsData,
+  activeCategory: state.activeCategory,
+  isLoaded: state.isLoaded,
+});
+
+export default connect(mapStateToProps)(Sidebar);
